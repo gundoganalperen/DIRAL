@@ -1,0 +1,100 @@
+experiment_name: "config_toy_4ue_3r_tests_db_r2_b20_mg_o_index_dis_95"  # direct positional dist.
+realness: False  # If this is tru then setup everything based on realnes simulator, if not use the test simulator.
+simulations: 1  # total number of simulations.
+time_slots: 250002
+episode_interval: 25  # 25 slots define one episode.
+attempt_prob: 1.0
+memory_size: 1024                         # size of experience replay deque
+plot_interval: 5000
+step_size: 6
+save_freq: 50000
+save_results: True
+save_model: False
+load_model: False
+load_slot: 4999  # model at load_slot will be loaded
+training: True   # enable or disable the traning the model
+explore: 2000    # Take random action first explore steps to discover the action space.
+greedy: 200000    # take greedy action after the exploration and learning policy steps.
+training_stop: 230000
+action_skip_enable: False  # Enabling this will allow a user to skip a transmission.
+                           # Then, the action space become num_channels + 1
+train_after_episode: True  # Default value is false, since we trained always after each episode.
+global_reward_avg: True  # Add Global value averaging in reward design. Note that normal we always add global reward
+                      # now we want to test we need it or not with channel model rewards.
+
+save_positions: True  # True for debug
+enable_channel: False
+ia_penalty_enable: False  # if a user can not transmit in positive channel for the last e.g. 5 transmission, we apply penalty
+ia_penalty_threshold: 5  # if we can not transmit succesfully for the last 5 transmission we apply this.
+ia_penalty_value: -10  # apply -10 reward.
+EnvironmentReal:
+  congestion_test: False
+  num_channels: 10  # This variable is exploited for test simulator to define the action space of the user
+  num_users: 12  # Defines the number of users in the scenario.
+  distance_based_reward: False
+  reward_design: 3   #3: 1;(1-exp(1-R)) 4: exp(R);-exp(1-R)
+  state_design: 2   #1: channel observation i.e. either detected traffic or rssi, 2: positional dist.
+  pos_dist: 2  # 1 is the range of -1 to +1 2: -state_range to +state_range pdf.
+  state_bins: 10
+  state_range: 250  # range of the observation
+  add_reward: False
+  add_index: True
+  port: 5555  #  The port that is used to communicate with the realness simulator.
+  sim_start: False
+  sim_seed: 0
+EnvironmentTest:
+  congestion_test: True
+  load_positions: False  # load the mobility positions to be used as a mobility pattern.
+  load_file_pos: "save_results/realness/drqn/config_realness_pos_store/positions_2000.npy"
+  num_channels: 3  # This variable is exploited for test simulator to define the action space of the user
+  num_users: 4  # Defines the number of users in the scenario.
+  mobility: True
+  mobility_vary: False  # if this set to true then UEs either accelerate or decelerate the speed.
+  highway_length: 100
+  enable_fingerprint: False  # Default value is false, adds epsilon and episode number as a part of the state.
+  reward_design: 2  # 1: classical design -1(1-weight) 2: (weight - N_c) : 3: (1-exp(1-R)) 4: -exp(1-R)
+  communication_range: 250
+  State:
+    type: 2  # state type doesnot matter if  we  set add_channel_obs flag to False. # Defines the state space type e.g. 1: observes detected traffics, 2: observes the distance among users.
+    add_action: True  # default value is true for now.
+    add_reward: False
+    add_index: False
+    add_velocity: False
+    action_index: "binary"  # this variable is either "binary" or a "real" number. Using real number decrease the
+                            # size of the action space
+    piggybacking: False
+    add_position: False
+    add_positional_dist: False  # add positional dist. of vehicles.
+    add_positional_dist_piggy: True  # add positional dist. of vehicles.
+    add_positional_dist_type: 2
+    add_channel_obs: False  # Default value is true, false is used to test add_positional_dist parameter.
+    num_bins: 20 # used for piggybacked neighbor positions.
+RLAgent:
+  algorithm: "DRQN"
+  policy: "eps_greedy"
+  batch_size: 512                          # Num of batches to train at each time_slot
+  n_batch: 2
+  pretrain_length: batch_size            # this is done to fill the deque up to batch size before training
+  target_update: 200
+  hidden_size: 128                       # Number of hidden neurons
+  learning_rate: 0.0001                  # learning rate
+  eps_init: 0.99
+  eps_decay: 0.9992
+  explore_start: .99                     # initial exploration rate
+  explore_stop: 0.001                     # final exploration rate
+  decay_rate: 0.001                     # rate of exponential decay of exploration
+  gamma: 0.95                             # discount  factor
+  noise: 0.1
+  step_size: 6 #1+2+2                       # length of history sequence for each datapoint  in batch
+  alpha: 0                               # co-operative fairness constant
+  beta: 1                                # Annealing constant for Monte - Carlo
+  temperature: 0.05                     # Softmax policy parameter
+  network:
+    cuDNN_support: False
+    use_lstm_input: True
+    use_dueling: False
+    use_double: True
+    skip_error: 0
+    layers:
+      1: 256
+      2: 256
