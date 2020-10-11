@@ -16,3 +16,12 @@ Illustration of the trained model in the real-time network simulator(RealNeS) wi
 <img src="/assets/diral_demo.gif" width="110%">
 
 ## Requirements
+* Python 3.6
+* Tensorflow 1.14
+* Numpy 1.19.2
+* PyYAML 5.3.1
+
+## Run an experiment
+* Add the config file you want to the file main_tesy.py
+* Run the `python main_test.py` command to launch the training.
+
