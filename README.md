@@ -8,7 +8,7 @@ We consider the distributed resource selection problem in Vehicle-to-vehicle (V2
 * Double Deep Q Network(DQN) with Long-Term-Short-Memory(LSTM)
 * Parameter sharing
 * Centralized training, decentralized execution framework
-<img src="/assets/training.png" width="60%"> 
+<img src="/assets/training.png" width="50%"> 
 
 ## Demo
 Illustration of the trained model in the real-time network simulator(RealNeS) with 6 vehicles and 5 available resources e.g. congested scenario. As we can see, far vehicles choose the same resources autonomously based on their local observations whereas near vehicles use separate resources.
