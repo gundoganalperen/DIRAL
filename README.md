@@ -25,3 +25,5 @@ Illustration of the trained model in the real-time network simulator(RealNeS) wi
 * Add the config file you want to the file main_tesy.py
 * Run the `python main_test.py` command to launch the training.
 
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
