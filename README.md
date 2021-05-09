@@ -25,5 +25,16 @@ Illustration of the trained model in the real-time network simulator(RealNeS) wi
 * Add the config file you want to the file main_tesy.py
 * Run the `python main_test.py` command to launch the training.
 
+## Pleasae cite the work if you would like to use it in your work
+* @inproceedings{gundougan2020distributed,
+  title={Distributed resource allocation with multi-agent deep reinforcement learning for 5G-V2V communication},
+  author={G{\"u}ndo{\u{g}}an, Alperen and G{\"u}rsu, H Murat and Pauli, Volker and Kellerer, Wolfgang},
+  booktitle={Proceedings of the Twenty-First International Symposium on Theory, Algorithmic Foundations, and Protocol Design for Mobile Networks and Mobile Computing},
+  pages={357--362},
+  year={2020}
+}
+* Gündoğan, Alperen, et al. "Distributed resource allocation with multi-agent deep reinforcement learning for 5G-V2V communication." Proceedings of the Twenty-First International Symposium on Theory, Algorithmic Foundations, and Protocol Design for Mobile Networks and Mobile Computing. 2020.
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
